@@ -2,22 +2,11 @@
 import fileinput
 import subprocess
 
-def GetChangedFiles():
+def GetFileNames():
 	with open("out.txt","w") as out:
-		subprocess.run(["git", "show","-q"], stdout=out)
-	
-
-def CleanGitShow():
+		print(subprocess.run(["git","diff","--name-only"], stdout=out))
 	with open("out.txt", "r") as out:
-		lines=out.readlines()
-	with open("out.txt", "w") as out:
-		for line in lines:
-			if "commit" in line.strip("\n"):
-				out.write(line)
-				hash=line
-				hash=hash.replace("commit ","")
-	with open("out.txt","w") as out:
-		out.write(hash)
+		print(out)
 
 def main(filename):
 	with open(filename, "r") as file:
@@ -25,7 +14,8 @@ def main(filename):
 	filedata=filedata.replace("    ","\t")
 	with open(filename, "w") as file:
 		file.write(filedata)
+
+
 if __name__ == "__main__":
-	GetChangedFiles()
-	CleanGitShow()
+	GetFileNames()
 	main("test.py")
