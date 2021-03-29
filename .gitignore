@@ -1,5 +1,4 @@
 /__pycache__
 .pyc
 out.txt
-test.py
-.bak
+.test.py.swp
